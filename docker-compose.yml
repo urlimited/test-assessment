@@ -21,7 +21,27 @@ services:
       PHP_IDE_CONFIG: serverName=localhost
     working_dir: /var/www/application
     volumes:
-      - ./src/:/var/www/application
+      - ./application/:/var/www/application
+    networks:
+      - ga-network
+
+  # PHP Task scheduler
+  ga_scheduler:
+    build:
+      context: .
+      dockerfile: deployment/dockers/ga_scheduler.dockerfile
+    image: ga_scheduler
+    container_name: ga_scheduler
+    restart: on-failure
+    tty: true
+    environment:
+      SERVICE_NAME: ga_scheduler
+    working_dir: /var/www/application
+    depends_on:
+      - ga_application
+      - ga_mysql
+    volumes:
+      - ./application/:/var/www/application
     networks:
       - ga-network
 
