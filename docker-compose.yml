@@ -1,0 +1,74 @@
+version: "3.8"  # optional since v1.27.0
+services:
+
+  # PHP Service
+  ga_application:
+    build:
+      context: .
+      dockerfile: deployment/dockers/ga_application.dockerfile
+    image: ga_application
+    container_name: ga_application
+    restart: on-failure
+    tty: true
+    environment:
+      SERVICE_NAME: ga_application
+      XDEBUG_ENABLED: 1
+      XDEBUG_REMOTE_AUTOSTART: 1
+      XDEBUG_MAXNESTING_LEVEL: 1000
+      XDEBUG_REMOTE_CONNECT_BACK: 1
+      XDEBUG_REMOTE_HOST: host.docker.internal
+      XDEBUG_SESSION: "PHPSTORM"
+      PHP_IDE_CONFIG: serverName=localhost
+    working_dir: /var/www/application
+    volumes:
+      - ./src/:/var/www/application
+    networks:
+      - ga-network
+
+  # Webserver Service
+  ga_webserver:
+    build:
+      context: .
+      dockerfile: deployment/dockers/ga_webserver.dockerfile
+    image: ga_webserver
+    container_name: ga_webserver
+    #restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: ga_webserver
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+    networks:
+      - ga-network
+
+  # Database Service
+  ga_mysql:
+    image: mysql:8.0.23
+    container_name: ga_mysql
+    #restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    command: --init-file /data/application/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_NAME: ga_mysql
+    volumes:
+      - ga_data:/var/lib/mysql/
+      #- ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./deployment/configs/ga_mysql_init.sql:/data/application/init.sql
+    networks:
+      - ga-network
+
+# Docker Networks
+networks:
+  ga-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  ga_data:
+    driver: local
