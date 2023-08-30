@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // We should not think about collisions here, since faker has unique keyword for the slug
-        Url::factory()->count(22)->create();
+        Url::factory()->count(35)->create();
     }
 }

@@ -8,6 +8,12 @@ use App\DTO\CreateUrlDTO;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * @desription Creates URL with random generated slug \
+ *    Covered scenarios: \
+ *      1.  Successfully creates a url
+ * @covers \App\Actions\Urls\CreateUrlAction::handle
+ */
 class CreateUrlActionTest extends TestCase
 {
     use RefreshDatabase;
@@ -27,7 +33,7 @@ class CreateUrlActionTest extends TestCase
             ->andReturn($mockedSlugValue);
 
         $dtoData = [
-            'destination' => 'https://example.com'
+            'destination' => 'https://google.com'
         ];
 
         $dto = new CreateUrlDTO(

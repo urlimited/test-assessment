@@ -20,7 +20,7 @@ class DeleteOldLinks extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'The command is used for handle old not enough visited urls';
 
     /**
      * Execute the console command.

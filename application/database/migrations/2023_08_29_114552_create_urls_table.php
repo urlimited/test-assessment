@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('destination');
             $table->string('slug')->unique();
             $table->unsignedBigInteger('views')->default(0);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

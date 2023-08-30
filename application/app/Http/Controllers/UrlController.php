@@ -15,7 +15,7 @@ use Illuminate\Validation\ValidationException;
 class UrlController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a main page for the URLs.
      */
     public function index(): View
     {
@@ -25,7 +25,7 @@ class UrlController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created url in storage.
      * @throws ValidationException
      */
     public function store(StoreUrlRequest $request, CreateUrlAction $createUrlAction): UrlResource
@@ -36,7 +36,7 @@ class UrlController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Going through the link and counts the views
      */
     public function show(ShowUrlRequest $request, Url $url, RedirectToUrlAction $redirectUrlAction): RedirectResponse
     {

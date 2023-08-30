@@ -8,6 +8,12 @@ use App\Models\Url;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * @desription Redirects to the url and increments a view count \
+ *    Covered scenarios: \
+ *      1.  Successfully redirects and increments a view
+ * @covers \App\Actions\Urls\RedirectToUrlAction::handle
+ */
 class RedirectToUrlActionTest extends TestCase
 {
     use RefreshDatabase;

@@ -21,6 +21,7 @@ class UrlFactory extends Factory
             'destination' => fake()->url(),
             'slug' => fake()->unique()->regexify('[A-Za-z0-9]{' . config('url_shortening.url_length') .'}'),
             'views' => fake()->numberBetween(0, 5),
+            'created_at' => fake()->dateTimeBetween('-35 days')
         ];
     }
 }

@@ -7,6 +7,12 @@ use App\DTO\CreateUrlDTO;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * @desription Creates random generated slug from a given charset with a given char length \
+ *    Covered scenarios: \
+ *      1.  Successfully creates a slug
+ * @covers \App\Actions\Urls\GenerateSlugAction::handle
+ */
 class GenerateSlugActionTest extends TestCase
 {
     use RefreshDatabase;
@@ -18,7 +24,7 @@ class GenerateSlugActionTest extends TestCase
     {
         // 1. Initialization and mocking
         $dto = new CreateUrlDTO(
-            destination: 'https://example.com'
+            destination: 'https://google.com'
         );
 
         $action = new GenerateSlugAction();
