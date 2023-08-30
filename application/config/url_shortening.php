@@ -13,10 +13,7 @@ return [
     |
     */
 
-    // @todo(mt): Collisions handle strategy as a bonus feature
-
     'number_of_tries' => env('URL_SHORTENING_NUMBER_OF_TRIES', 5),
-
 
     'url_charset' => '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
 

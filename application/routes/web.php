@@ -15,14 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return redirect()->route('urls.index');
+});
 
 Route::middleware('auth')->group(function () {
-    Route::resource('urls', UrlController::class);
+    Route::resource('urls', UrlController::class)->only(['index', 'show', 'store']);
 });

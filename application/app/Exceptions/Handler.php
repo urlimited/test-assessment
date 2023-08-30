@@ -26,5 +26,15 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function (Throwable $e) {
+            if($this->isHttpException($e))
+            {
+                return match ($e->getStatusCode()) {
+                    404, 500 => redirect()->route('urls.index'),
+                    default => $this->renderHttpException($e),
+                };
+            }
+        });
     }
 }
